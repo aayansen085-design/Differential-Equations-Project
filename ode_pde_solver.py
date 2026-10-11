@@ -52,7 +52,6 @@ topic = st.sidebar.selectbox(
         "Linear ODE",
         "Bernoulli Equation",
         "Euler Numerical Method",
-        "Runge-Kutta Method",
         "Introduction to PDE",
         "Lagrange PDE",
         "Charpit PDE",
@@ -451,163 +450,13 @@ elif topic == "Euler Numerical Method":
                 "Invalid function. Example: x+y"
             )
 
-
-# ================================================================
-# RUNGE KUTTA
-# ================================================================
-
-elif topic == "Runge-Kutta Method":
-
-    st.header("6. Fourth Order Runge-Kutta Method")
-
-    st.write(
-        "The classical fourth-order Runge-Kutta method uses:"
-    )
-
-    st.latex(r"""
-    k_1=f(x_n,y_n)
-    """)
-
-    st.latex(r"""
-    k_2=f(x_n+h/2,y_n+hk_1/2)
-    """)
-
-    st.latex(r"""
-    k_3=f(x_n+h/2,y_n+hk_2/2)
-    """)
-
-    st.latex(r"""
-    k_4=f(x_n+h,y_n+hk_3)
-    """)
-
-    st.latex(r"""
-    y_{n+1}
-    =
-    y_n+
-    \frac{h}{6}
-    (k_1+2k_2+2k_3+k_4)
-    """)
-
-    st.divider()
-
-    f_text = st.text_input(
-        "Enter f(x,y)",
-        "x + y",
-        key="rk_function"
-    )
-
-    x0 = st.number_input(
-        "Initial x",
-        value=0.0,
-        key="rk_x"
-    )
-
-    y0 = st.number_input(
-        "Initial y",
-        value=1.0,
-        key="rk_y"
-    )
-
-    h = st.number_input(
-        "Step size",
-        value=0.1,
-        key="rk_h"
-    )
-
-    n = st.number_input(
-        "Number of steps",
-        min_value=1,
-        max_value=1000,
-        value=10,
-        key="rk_n"
-    )
-
-    if st.button("Run RK4"):
-
-        try:
-
-            f_expr = sp.sympify(f_text)
-
-            f_func = sp.lambdify(
-                (x, y),
-                f_expr,
-                "numpy"
-            )
-
-            xs = [x0]
-            ys = [y0]
-
-            for i in range(int(n)):
-
-                xn = xs[-1]
-                yn = ys[-1]
-
-                k1 = f_func(xn, yn)
-
-                k2 = f_func(
-                    xn + h / 2,
-                    yn + h * k1 / 2
-                )
-
-                k3 = f_func(
-                    xn + h / 2,
-                    yn + h * k2 / 2
-                )
-
-                k4 = f_func(
-                    xn + h,
-                    yn + h * k3
-                )
-
-                yn1 = yn + (
-                    h / 6
-                ) * (
-                    k1 + 2*k2 + 2*k3 + k4
-                )
-
-                xs.append(xn + h)
-                ys.append(float(yn1))
-
-            st.subheader("Numerical Results")
-
-            st.dataframe({
-                "x": xs,
-                "y": ys
-            })
-
-            fig, ax = plt.subplots()
-
-            ax.plot(
-                xs,
-                ys,
-                marker="o"
-            )
-
-            ax.set_xlabel("x")
-            ax.set_ylabel("y")
-
-            ax.set_title(
-                "Fourth Order Runge-Kutta Method"
-            )
-
-            ax.grid()
-
-            st.pyplot(fig)
-
-        except Exception:
-
-            st.error(
-                "Invalid function. Example: x+y"
-            )
-
-
 # ================================================================
 # INTRODUCTION TO PDE
 # ================================================================
 
 elif topic == "Introduction to PDE":
 
-    st.header("7. Introduction to Partial Differential Equations")
+    st.header("6. Introduction to Partial Differential Equations")
 
     st.write(
         """
@@ -666,7 +515,7 @@ elif topic == "Introduction to PDE":
 
 elif topic == "Lagrange PDE":
 
-    st.header("8. Lagrange's First Order PDE")
+    st.header("7. Lagrange's First Order PDE")
 
     st.write(
         """
@@ -739,7 +588,7 @@ elif topic == "Lagrange PDE":
 
 elif topic == "Charpit PDE":
 
-    st.header("9. Charpit's Method")
+    st.header("8. Charpit's Method")
 
     st.write(
         """
@@ -793,7 +642,7 @@ elif topic == "Charpit PDE":
 
 elif topic == "Linear PDE":
 
-    st.header("10. Linear Partial Differential Equations")
+    st.header("9. Linear Partial Differential Equations")
 
     st.write(
         """
@@ -854,7 +703,7 @@ elif topic == "Linear PDE":
 
 elif topic == "Non-Linear PDE":
 
-    st.header("11. Non-Linear Partial Differential Equations")
+    st.header("10. Non-Linear Partial Differential Equations")
 
     st.write(
         """
@@ -907,7 +756,7 @@ elif topic == "Non-Linear PDE":
 
 elif topic == "About Project":
 
-    st.header("12. About the Project")
+    st.header("11. About the Project")
 
     st.write(
         """
@@ -929,7 +778,6 @@ elif topic == "About Project":
         "Linear ODE",
         "Bernoulli Equation",
         "Euler Numerical Method",
-        "Runge-Kutta Method",
         "Partial Differential Equations",
         "Lagrange's Method",
         "Charpit's Method",
